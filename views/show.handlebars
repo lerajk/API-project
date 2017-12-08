@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+</head>
+<body>
+
+<div class ="container">
+
+ <div class ="search">
+<input type="search" name="search" placeholder="search with keywords..." > 
+<!-- <button type="button" class="btn btn-outline-primary btn-lg">Search</button> -->
+
+</div> </br>
+
+<div class="letsgo"></div> </br>
+
+<input id ="cancel"  value="Go Home" class ="cancel"/></label> 
+
+
+
+
+
+</div> <!-- container close -->
+
+<!--tests -->
+<script>
+
+	$.ajax({
+	  url: 'http://localhost:3000/showapi',
+	  method: 'GET',
+	  dataType: 'json'
+	}).then(function(res) {
+
+
+
+	  var objectLength = res.length;
+      for (var i = 0; i < objectLength; i = i + 1) {
+      		var title = (res[i].title);
+      		var author = (res[i].author);
+      		var blog = (res[i].content);
+      		var id = (res[i]._id);
+          var category = (res[i].category);
+      		console.log(blog);
+
+
+     
+          $(".letsgo").append(
+          	"<div id=" + id + " class='accordianOpen'> " + "<h2 class='accordionItemHeading'>" + title + " by " + author + "</h2>" +
+           	"<div class='accordionItemContent'><div class='textareadisplay'><textarea readonly rows='4' cols='90'>" + blog + "</textarea></div>" + " <button id = " + id + " class='update'>Update</button> <button id = " + id + " class='delete'>Delete</button>" + '<div class ="tag"><span class="w3-tag w3-round w3-teal w3-border w3-border-white w3-large" align="right">' + "#" +category + "</span></div>" +
+           	"</div> </div>"
+
+        	 ); //append ends    
+       
+
+      }
+
+      deleteFunction();
+      updateFunction();
+
+      //testFunction();
+      
+	});
+
+	 function deleteFunction(){
+
+    $(".delete").click(function(e){
+       
+       if (confirm('Delete this blog ?')) {
+
+       //}
+
+        e.preventDefault();
+        var thisId = $(this).attr("id");
+        console.log(thisId);
+        window.location.href = 'http://localhost:3000/show';
+
+        //activate ajax call
+        $.ajax({
+              url: 'http://localhost:3000/show/' + thisId,
+              method: 'DELETE'       
+            }); // ajax call
+
+      } else {
+
+        console.log('Delete Prevented');
+
+      }
+
+      }); //.delete class click function 
+	           
+
+          } //delete funtion ends
+
+    function updateFunction(){
+
+      $(".update").click(function(e){
+        e.preventDefault();
+        var thisID = $(this).attr("id");
+        console.log(thisID);
+        location.href = 'http://localhost:3000/add/' + thisID;
+
+        $.ajax({
+          url: 'http://localhost:3000/add/' + thisID,
+          method: 'GET' // this method was PUT
+        }); //ajax call 
+      });//update JQuery
+
+      
+        
+    } // update function ends here
+
+
+  //cancel go to root 
+ document.getElementById("cancel").onclick = function () {
+        window.location.href = 'http://localhost:3000';
+    };
+
+
+ 
+  
+
+
+</script>
+
+</body>
+</html>
+
+
+
+

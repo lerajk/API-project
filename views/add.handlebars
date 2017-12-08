@@ -1,0 +1,85 @@
+<header>
+<link rel= "stylesheet" href="/stylesheets/bootstrap.css"/>
+<link rel= "stylesheet" href="/stylesheets/style.css"/>
+
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+</header>
+
+
+<div class="container">
+
+<div class="form-style-2">
+<div class="form-style-2-heading">Add New Inventory Data</div>
+
+<form id= "form" method="post">
+
+<label for="field1"><span>Product Name <span class="required">*</span> </span><input type="text" class="input-field" name="product"  /></label>
+
+<label for="field2"><span>Price of Product <span class="required">*</span> </span><input type="text" class="input-field" name="price" /></label>
+
+<label for="field2"><span>Quantity <span class="required">*</span> </span><input type="text" class="input-field" name="quantity"  /></label>
+
+<label for="field5"><span>Description <span class="required">*</span></span> <textarea rows="4" cols="50" name="description" class="textarea-field"></textarea></label>
+
+<label for="field2"><span>Today's Date <span class="required">*</span> </span><input type="text" class="input-field" name="date"  /></label>
+
+<label><input type="submit" value="Submit" class ="update"/></label> 
+<label><input type= "button" id ="cancel"  value="Cancel" class ="cancel"/></label> 
+</form>
+</div>
+
+
+</div> <!-- Div of Container ends here --> 
+
+<script type="text/javascript">
+
+
+//cancel to go home page
+ document.getElementById("cancel").onclick = function () {
+        window.location.href = 'http://localhost:3000';
+    };
+  
+//form validation with Jquery 
+$(document).ready(function () {
+
+    $('#form').validate({ // initialize the plugin
+        rules: {
+            product: {
+                required: true,
+                //email: true
+            },
+            price: {
+                required: true,
+                //minlength: 5
+            },
+             quantity: {
+                required: true,
+                //minlength: 5
+            },
+             description: {
+                required: true,
+                //minlength: 5
+            },
+            date: {
+              required: true,
+            },
+        },
+          messages: {
+
+            product: "is required", 
+            price: "is required",
+            quantity: "is required",
+            description: "is required",
+            date: "is required"
+
+           }
+
+    });
+
+});
+
+
+
+</script>

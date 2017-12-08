@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<header>
+<link rel= "stylesheet" href="/stylesheets/bootstrap.css"/>
+<link rel= "stylesheet" href="/stylesheets/style.css"/>
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.8/jquery.validate.min.js"></script>
+
+</header>
+<body>
+
+
+<div class="container">
+
+
+
+<div class="form-style-2">
+<div class="form-style-2-heading">Edit the blog to help others..</div>
+
+<form id= "form" action="http://localhost:3000/show" method="put">
+
+<label for="field1"><span>Title <span class="required">*</span> </span><input id= "title" type="text" class="input-field" name="title_edit"  /></label>
+
+<label for="field2"><span>Author <span class="required">*</span> </span><input id= "author" type="text" class="input-field" name="test" value="" /></label>
+
+<label for="field4"><span>Category</span><select id= "category" name="category_edit" class="select-field">
+<option value="Content">Content</option>
+<option value="Sales">Sales</option>
+<option value="Development">Development</option>
+</select></label>
+
+<label for="field5"><span>Blog <span class="required">*</span></span> <textarea id= "content" name="content_edit" class="textarea-field"></textarea></label>
+
+<label><input type = "submit" value="Edit" class ="update"/></label>
+<label><input type = "button" id ="cancel"  value="Cancel" class ="cancel"/></label>
+</form>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+	editFunction();
+
+    function editFunction(){
+
+      $(".update").click(function(e){
+        //e.preventDefault();
+        //var thisID = $(this).attr("id");
+        //console.log(thisID);
+        var a = location.href; //'http://localhost:3000/add/:id';
+        var value = a.split('/')[4];
+        console.log(value); 
+
+
+        $.ajax({
+          url: 'http://localhost:3000/add/' +  value,
+          method: 'put',
+          dataType : 'json', // data type
+          data : $("#form").serialize()
+          
+          //Content-Type: "application/json"//"text/plain"
+
+        }); //ajax call 
+      });//update JQuery    
+        
+    } // update function ends here
+
+
+//form validation with Jquery happening here
+$(document).ready(function () {
+
+    $('#form').validate({ // initialize the plugin
+        rules: {
+            title_edit: {
+                required: true,
+                //email: true
+            },
+            test: {
+                required: true,
+                //minlength: 5
+            },
+            content_edit: {
+              required: true,
+            }
+        },
+          messages: {
+
+            title_edit: "is required", 
+            test: "is required",
+            content_edit: "is required"
+
+           }
+
+    });
+
+});
+
+
+// pre populating the form 
+
+var b = location.href; //'http://localhost:3000/add/:id';
+var val = b.split('/')[4];
+console.log('im the value: ' + val); 
+
+$.ajax({ 
+
+  url: 'http://localhost:3000/show/' +  val,
+  method: 'GET',
+  dataType: 'json'
+
+}).then(function(res){
+  //console.log(res);
+  var title = res.title;
+  var author = res.author;
+  var blog = res.content;
+  //var category = res.category;
+  //console.log(category);
+  document.getElementById("title").value = title; 
+  document.getElementById("author").value = author; 
+  document.getElementById("content").value = blog; 
+  //document.getElementById("category").value = category; 
+
+
+
+
+}); //ajaxcallends
+
+
+
+  //cancel go to show page 
+ document.getElementById("cancel").onclick = function () {
+        window.location.href = 'http://localhost:3000/show';
+    };
+
+
+	
+
+
+</script>
+</body>
+</html>
