@@ -31,7 +31,7 @@ module.exports.add = function (req,res){
         quantity: req.body.quantity,
         description: req.body.description,
         date: req.body.date
-    }, function(err,Inventory){
+    }, function(err,inventory){
         if(err){
             console.log('Error in processing ADD request');
         } else {
@@ -46,7 +46,7 @@ module.exports.add = function (req,res){
 //find by ID request
 module.exports.findbyid = function(req,res){
     
-        data.findById(req.params.id, function(err, Inventory){ 
+        data.findById(req.params.id, function(err, inventory){ 
         res.send(Inventory);
      
 
@@ -57,7 +57,7 @@ module.exports.findbyid = function(req,res){
 //delete by ID request
 module.exports.delete = function(req,res){
 
-    data.findByIdAndRemove(req.params.id, function(err,Inventory){
+    data.findByIdAndRemove(req.params.id, function(err,inventory){
     if (err) throw err;
     console.log ('Datd deleted with the following ID:');
     console.log(req.params.id);

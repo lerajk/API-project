@@ -36,9 +36,9 @@ var InventorySchema = mongoose.Schema({
 	}
 });
 
-var Inventory  = mongoose.model('Inventory', InventorySchema);
+var inventory  = mongoose.model('Inventory', InventorySchema);
 
-module.exports = Inventory; 
+module.exports = inventory; 
 
 
 //config variable for heroku: saleskb

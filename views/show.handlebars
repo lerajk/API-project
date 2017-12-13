@@ -8,23 +8,12 @@
 
 <div class ="container">
 
- <div class ="search">
-<input type="search" name="search" placeholder="search with keywords..." > 
-<!-- <button type="button" class="btn btn-outline-primary btn-lg">Search</button> -->
-
-</div> </br>
-
 <div class="letsgo"></div> </br>
 
 <input id ="cancel"  value="Go Home" class ="cancel"/></label> 
 
-
-
-
-
 </div> <!-- container close -->
 
-<!--tests -->
 <script>
 
 	$.ajax({
@@ -33,22 +22,18 @@
 	  dataType: 'json'
 	}).then(function(res) {
 
-
-
 	  var objectLength = res.length;
       for (var i = 0; i < objectLength; i = i + 1) {
-      		var title = (res[i].title);
-      		var author = (res[i].author);
-      		var blog = (res[i].content);
+      		var product = (res[i].product);
+      		var price = (res[i].price);
+      		var quantity = (res[i].quantity);
       		var id = (res[i]._id);
-          var category = (res[i].category);
-      		console.log(blog);
+          var description = (res[i].description);
+          var date = (res[i].date);
 
-
-     
           $(".letsgo").append(
-          	"<div id=" + id + " class='accordianOpen'> " + "<h2 class='accordionItemHeading'>" + title + " by " + author + "</h2>" +
-           	"<div class='accordionItemContent'><div class='textareadisplay'><textarea readonly rows='4' cols='90'>" + blog + "</textarea></div>" + " <button id = " + id + " class='update'>Update</button> <button id = " + id + " class='delete'>Delete</button>" + '<div class ="tag"><span class="w3-tag w3-round w3-teal w3-border w3-border-white w3-large" align="right">' + "#" +category + "</span></div>" +
+          	"<div id=" + id + " class='accordianOpen'> " + "<h2 class='accordionItemHeading'>" + product + " by " + price + "</h2>" +
+           	"<div class='accordionItemContent'><div class='textareadisplay'><textarea readonly rows='4' cols='90'>" + description + "</textarea></div>" + " <button id = " + id + " class='update'>Update</button> <button id = " + id + " class='delete'>Delete</button>" + '<div class ="tag"><span class="w3-tag w3-round w3-teal w3-border w3-border-white w3-large" align="right">' + "#" + date + "</span></div>" +
            	"</div> </div>"
 
         	 ); //append ends    
@@ -58,8 +43,6 @@
 
       deleteFunction();
       updateFunction();
-
-      //testFunction();
       
 	});
 
@@ -67,13 +50,11 @@
 
     $(".delete").click(function(e){
        
-       if (confirm('Delete this blog ?')) {
-
-       //}
+       if (confirm('Delete this Data ?')) {
 
         e.preventDefault();
         var thisId = $(this).attr("id");
-        console.log(thisId);
+        //console.log(thisId);
         window.location.href = 'http://localhost:3000/show';
 
         //activate ajax call
@@ -116,10 +97,6 @@
  document.getElementById("cancel").onclick = function () {
         window.location.href = 'http://localhost:3000';
     };
-
-
- 
-  
 
 
 </script>
