@@ -46,21 +46,20 @@ module.exports.add = function (req,res){
 //find by ID request
 module.exports.findbyid = function(req,res){
     
-        data.findById(req.params.id, function(err, articles){ 
-        res.send(articles);
+        data.findById(req.params.id, function(err, Inventory){ 
+        res.send(Inventory);
      
 
-    } /*inside function of findbyid */ ) //findbyid ends here
+    } ) //findbyid ends here
 };
 
 
 //delete by ID request
 module.exports.delete = function(req,res){
 
-    data.findByIdAndRemove(req.params.id, function(err,articles){
-
+    data.findByIdAndRemove(req.params.id, function(err,Inventory){
     if (err) throw err;
-    console.log ('user deleted with the following ID!');
+    console.log ('Datd deleted with the following ID:');
     console.log(req.params.id);
 
     })   
@@ -73,12 +72,11 @@ module.exports.edit = function(req,res){
 
         let edit = {};
       
-        edit.author = req.body.test;
-        edit.title = req.body.title_edit;
-        edit.content = req.body.content_edit;
-        edit.category = req.body.category_edit;
-
-        console.log('the edited article was written by:  ' + edit.author);
+        edit.product = req.body.product_edit;
+        edit.price = req.body.price_edit;
+        edit.quantity = req.body.quantity_edit;
+        edit.description = req.body.description_edit;
+        edit.date = req.body.date_edit;
 
         let query = {_id:req.params.id};
 
@@ -88,7 +86,7 @@ module.exports.edit = function(req,res){
                 console.log(err);
                 return;
             } else {
-                console.log('the blog was updated!');
+                console.log('Data was updated.');
           
             }
 
