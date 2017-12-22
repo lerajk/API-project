@@ -21,23 +21,49 @@ data.find({ }, function (err, docs) {
 };
 
 
-// add request
+
 module.exports.add = function (req,res){
 
+
+/* var options = {
+  host: url,
+  port: 80,
+  path: 'herokucloud.com/add',
+  method: 'POST'
+};
+
+http.request(options, function(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+  res.setEncoding('utf8');
+  res.on('data', function (chunk) {
+    console.log('BODY: ' + chunk);
+  });
+}).end();
+
+if(res.status == 'sucess')
+    redirect to show page
+else
+    response.body.errorVariable = res.message;
+    return
+    */
+
+
+    // add request
     //var test = JSON.stringify(req.body.category);
     data.create({
         product: req.body.product,
-        price: req.body.author,
+        price: req.body.price,
         quantity: req.body.quantity,
         description: req.body.description,
         date: req.body.date
     }, function(err,inventory){
         if(err){
-            console.log('Error in processing ADD request');
+            console.log('Error in processing ADD request' + ' ' + inventory + ' ' + err);
         } else {
             console.log('Succesfully Added.');
-            //res.redirect('http://localhost:3000/show'); 
-            res.send('Success');
+            res.redirect('http://localhost:3000/show'); 
+            //res.send('Success');
 
         }
     });
@@ -47,7 +73,7 @@ module.exports.add = function (req,res){
 module.exports.findbyid = function(req,res){
     
         data.findById(req.params.id, function(err, inventory){ 
-        res.send(Inventory);
+        res.send(inventory);
      
 
     } ) //findbyid ends here
@@ -59,7 +85,7 @@ module.exports.delete = function(req,res){
 
     data.findByIdAndRemove(req.params.id, function(err,inventory){
     if (err) throw err;
-    console.log ('Datd deleted with the following ID:');
+    console.log ('Data deleted with the following ID:');
     console.log(req.params.id);
 
     })   
